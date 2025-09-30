@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
     Form,
@@ -17,23 +18,14 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { handleContactFormSubmission } from "@/app/contact/actions"
-import { useState } from "react"
 
 const formSchema = z.object({
-    name: z.string().min(2, {
-        message: "Name must be at least 2 characters.",
-    }),
-    email: z.string().email({
-        message: "Please enter a valid email address.",
-    }),
+    name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+    email: z.string().email({ message: "Please enter a valid email address." }),
     message: z
         .string()
-        .min(10, {
-            message: "Message must be at least 10 characters.",
-        })
-        .max(500, {
-            message: "Message must not exceed 500 characters.",
-        }),
+        .min(10, { message: "Message must be at least 10 characters." })
+        .max(500, { message: "Message must not exceed 500 characters." }),
 })
 
 export type ContactFormValues = z.infer<typeof formSchema>
@@ -44,26 +36,22 @@ export function ContactForm() {
 
     const form = useForm<ContactFormValues>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            name: "",
-            email: "",
-            message: "",
-        },
+        defaultValues: { name: "", email: "", message: "" },
     })
 
     async function onSubmit(values: ContactFormValues) {
         setIsSubmitting(true)
 
-        // Demo Mode
+        // Demo mode
         toast({
-            title: "Feature in Progress 🚧",
+            title: "🚧 Feature in Progress",
             description:
-                "This form isn’t live yet. For now, reach me on LinkedIn (linkedin.com/in/tesfamaryam-s-3092b5302), email (tesfamaryam785@gmail.com), or Telegram (@tesfaOG).",
+                "This form isn’t live yet. Reach me via LinkedIn (linkedin.com/in/tesfamaryam-s-3092b5302), email (tesfamaryam785@gmail.com), or Telegram (@tesfaOG).",
         })
 
         setIsSubmitting(false)
 
-        // --- Uncomment when backend is ready ---
+        // --- Uncomment below when backend is ready ---
         /*
         try {
           const result = await handleContactFormSubmission(values)
@@ -94,11 +82,8 @@ export function ContactForm() {
 
     return (
         <Form {...form}>
-            <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8 max-w-xl mx-auto"
-            >
-                {/* Name Field */}
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-xl mx-auto">
+                {/* Name */}
                 <FormField
                     control={form.control}
                     name="name"
@@ -106,18 +91,14 @@ export function ContactForm() {
                         <FormItem>
                             <FormLabel>Name</FormLabel>
                             <FormControl>
-                                <Input
-                                    placeholder="Your Name"
-                                    {...field}
-                                    aria-label="Your Name"
-                                />
+                                <Input {...field} placeholder="Your Name" aria-label="Your Name" />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
 
-                {/* Email Field */}
+                {/* Email */}
                 <FormField
                     control={form.control}
                     name="email"
@@ -126,9 +107,9 @@ export function ContactForm() {
                             <FormLabel>Email</FormLabel>
                             <FormControl>
                                 <Input
+                                    {...field}
                                     type="email"
                                     placeholder="your.email@example.com"
-                                    {...field}
                                     aria-label="Your Email"
                                 />
                             </FormControl>
@@ -137,7 +118,7 @@ export function ContactForm() {
                     )}
                 />
 
-                {/* Message Field */}
+                {/* Message */}
                 <FormField
                     control={form.control}
                     name="message"
@@ -146,27 +127,21 @@ export function ContactForm() {
                             <FormLabel>Message</FormLabel>
                             <FormControl>
                                 <Textarea
-                                    placeholder="Tell me how I can help you or share feedback..."
-                                    className="resize-none"
-                                    rows={5}
                                     {...field}
+                                    placeholder="Tell me how I can help you or share feedback..."
+                                    rows={5}
+                                    className="resize-none"
                                     aria-label="Your Message"
                                 />
                             </FormControl>
-                            <FormDescription>
-                                Your message should be between 10 and 500 characters.
-                            </FormDescription>
+                            <FormDescription>Your message should be between 10 and 500 characters.</FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
 
-                {/* Submit Button */}
-                <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    aria-label="Send Message"
-                >
+                {/* Submit */}
+                <Button type="submit" disabled={isSubmitting} aria-label="Send Message">
                     {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
             </form>
