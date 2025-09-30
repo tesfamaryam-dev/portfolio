@@ -54,34 +54,35 @@ export function ContactForm() {
     async function onSubmit(values: ContactFormValues) {
         setIsSubmitting(true)
 
+        // Demo Mode
         toast({
-            title: "Hold up!",
+            title: "Feature in Progress 🚧",
             description:
-                "This feature is in the works. You can reach me via LinkedIn at https://www.linkedin.com/in/tesfamaryam-s-3092b5302, email at tesfamaryam785@gmail.com, or Telegram @tesfaOG for now.",
+                "This form isn’t live yet. For now, reach me on LinkedIn (linkedin.com/in/tesfamaryam-s-3092b5302), email (tesfamaryam785@gmail.com), or Telegram (@tesfaOG).",
         })
 
         setIsSubmitting(false)
 
-        // Uncomment below to enable real submission
+        // --- Uncomment when backend is ready ---
         /*
         try {
           const result = await handleContactFormSubmission(values)
           if (result.success) {
             toast({
-              title: "Message Sent!",
+              title: "✅ Message Sent!",
               description: "Thanks for reaching out. I'll get back to you soon.",
             })
             form.reset()
           } else {
             toast({
-              title: "Error",
+              title: "❌ Error",
               description: result.error || "Failed to send message. Please try again.",
               variant: "destructive",
             })
           }
         } catch (error) {
           toast({
-            title: "Error",
+            title: "❌ Error",
             description: "An unexpected error occurred. Please try again.",
             variant: "destructive",
           })
@@ -97,6 +98,7 @@ export function ContactForm() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-8 max-w-xl mx-auto"
             >
+                {/* Name Field */}
                 <FormField
                     control={form.control}
                     name="name"
@@ -104,12 +106,18 @@ export function ContactForm() {
                         <FormItem>
                             <FormLabel>Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="Your Name" {...field} />
+                                <Input
+                                    placeholder="Your Name"
+                                    {...field}
+                                    aria-label="Your Name"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
+
+                {/* Email Field */}
                 <FormField
                     control={form.control}
                     name="email"
@@ -121,12 +129,15 @@ export function ContactForm() {
                                     type="email"
                                     placeholder="your.email@example.com"
                                     {...field}
+                                    aria-label="Your Email"
                                 />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
+
+                {/* Message Field */}
                 <FormField
                     control={form.control}
                     name="message"
@@ -135,10 +146,11 @@ export function ContactForm() {
                             <FormLabel>Message</FormLabel>
                             <FormControl>
                                 <Textarea
-                                    placeholder="Tell me how I can help you or provide some feedback..."
+                                    placeholder="Tell me how I can help you or share feedback..."
                                     className="resize-none"
                                     rows={5}
                                     {...field}
+                                    aria-label="Your Message"
                                 />
                             </FormControl>
                             <FormDescription>
@@ -148,7 +160,13 @@ export function ContactForm() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" disabled={isSubmitting}>
+
+                {/* Submit Button */}
+                <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    aria-label="Send Message"
+                >
                     {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
             </form>

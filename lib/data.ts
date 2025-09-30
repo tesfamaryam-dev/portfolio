@@ -92,6 +92,10 @@ export const projects: Project[] = [
     {
         id: "personal-8",
         title: "Discordant",
+        description: "A music discovery app built with React and Tailwind CSS",
         image: "/discordant.png",
         category: ProjectCategory.Personal,
-        liveDe
+        liveDemoUrl: "https://discordant-app.vercel.app/",
+        technologies: ["React.js", "Tailwind CSS", "Vite"],
+    },
+];

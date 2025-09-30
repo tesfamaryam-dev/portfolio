@@ -1,5 +1,4 @@
-"use client"
-
+// app/layout.tsx
 import type React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -39,7 +38,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "My Portfolio",
         description: "A showcase of my personal and real-world projects.",
-        url: "https://my-portfolio-tesfa.vercel.app/", // updated Vercel URL
+        url: "https://my-portfolio-tesfa.vercel.app/",
         siteName: "My Portfolio",
         images: [
             {
